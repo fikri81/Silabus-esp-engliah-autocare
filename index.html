@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP TKR - Fikri</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --primary:#2563eb; --neon:#00e5ff; --bg:#0f172a; --card:#1e293b; --card2:#111c32;
+ --text:#e2e8f0; --muted:#94a3b8; --border:#334155; --gold:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif}
+body{background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+#progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--neon),var(--gold));width:0%;z-index:9999;transition:width.1s}
+header{padding:2rem 1rem;text-align:center;position:relative;background:radial-gradient(circle at 30% 20%, #1e40af 0%, #0f172a 60%);border-bottom:1px solid var(--border)}
+.logo-wrap{display:flex;justify-content:center;margin-bottom:1.2rem}
+.logo-fikri{
+ font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:2rem;letter-spacing:1px;
+ background:linear-gradient(135deg,#fff 10%,#60a5fa 40%,var(--neon) 70%,var(--gold) 100%);
+ -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+ border:2px solid #3b82f6;padding:.5rem 1.4rem;border-radius:14px;
+ display:inline-block;transform-style:preserve-3d;transition:.4s;cursor:pointer;
+ box-shadow:0 0 0px var(--neon);position:relative;overflow:hidden;user-select:none
+}
+.logo-fikri:hover{transform:rotateX(10deg) rotateY(-10deg) scale(1.05);box-shadow:0 0 30px #00e5ff66}
+.logo-fikri:active{transform:scale(.95)}
+.logo-fikri::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.4) 50%,transparent 80%);transform:translateX(-100%) rotate(20deg);transition:.6s}
+.logo-fikri.shine::after{transform:translateX(100%) rotate(20deg)}
+.sub{color:var(--muted)}.sub b{color:#fff}
+.container{max-width:1250px;margin:0 auto;padding:1.5rem 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin:2rem 0}
+.dash-card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;padding:1.3rem;cursor:pointer;transition:.35s;position:relative;overflow:hidden}
+.dash-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--neon);box-shadow:0 12px 30px -10px #00e5ff66}
+.dash-card.active{border-color:var(--primary);background:linear-gradient(180deg,#1e3a8a33,#1e293b)}
+.dash-card h3{font-size:1.15rem}.dash-card span{color:var(--muted);font-size:.85rem}
+.ripple{position:absolute;border-radius:50%;transform:scale(0);animation:ripple.6s linear;background:rgba(255,255,255,.3);pointer-events:none}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+.module{display:none;background:#0f172a;border:1px solid var(--border);border-radius:18px;padding:1.5rem;animation:fade.4s}
+.module.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.mod-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;border-bottom:1px dashed var(--border);padding-bottom:1rem;margin-bottom:1rem}
+.badge{background:#2563eb22;color:#60a5fa;border:1px solid #2563eb44;padding:.3rem.8rem;border-radius:20px;font-weight:700;font-size:.8rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{background:#1e40af;color:#fff;padding:.9rem.7rem;text-align:left;position:sticky;top:0}
+td{padding:.9rem.7rem;border-bottom:1px solid #1e293b;vertical-align:top}
+tr:hover td{background:#1e293b;transition:.2s}
+.example{background:#020617;border-left:3px solid var(--neon);padding:.6rem.8rem;margin:.6rem 0;border-radius:8px;font-size:.82rem;color:#cbd5e1}
+.example b{color:var(--gold)}
+.tag{display:inline-block;background:#fbbf2433;color:var(--gold);padding:2px 8px;border-radius:6px;font-size:.7rem;font-weight:700;margin-top:4px}
+.reveal{opacity:0;transform:translateY(20px);transition:.6s}
+.reveal.show{opacity:1;transform:translateY(0)}
+footer{text-align:center;color:var(--muted);padding:2rem 1rem;margin-top:2rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<header>
+<div class="logo-wrap"><div class="logo-fikri" id="logo">fikri<br>Esp tkr</div></div>
+<h1 style="font-size:1.7rem;font-weight:800">MODUL ESP OTOMOTIF & AKUNTANSI</h1>
+<p class="sub">Kurikulum Merdeka • Ganjil 2026/2027 • <b>SMKN Wongsorejo</b> • Achmad Ali Fikri, S.Hum</p>
+</header>
+
+<div class="container">
+<div class="grid">
+<div class="dash-card active" onclick="openMod('tkr10',this)"><h3>🚗 Kelas X TKR</h3><span>Fase E • 18 Pertemuan • Basic Workshop</span></div>
+<div class="dash-card" onclick="openMod('tkr11',this)"><h3>🔧 Kelas XI TKR</h3><span>Fase F • 18 Pertemuan • Diagnostic</span></div>
+<div class="dash-card" onclick="openMod('tkr12',this)"><h3>🏁 Kelas XII TKR</h3><span>Fase F • 18 Pertemuan • Job & Interview</span></div>
+<div class="dash-card" onclick="openMod('akl11',this)"><h3>📊 Kelas XI AKL</h3><span>Fase F • 18 Pertemuan • Accounting English</span></div>
+</div>
+
+<!-- X TKR -->
+<div id="tkr10" class="module active reveal show">
+<div class="mod-head"><h2>X TKR - Workshop Orientation & Safety</h2><span class="badge">Fase E - Pemula Bengkel</span></div>
+<div style="overflow:auto">
+<table>
+<tr><th>Bab</th><th>Pert</th><th>Materi</th><th>Contoh Riil + Aktivitas</th><th>LKPD</th></tr>
+<tr><td><b>BAB 1: K3LH</b></td><td>1</td><td>Greetings & Workshop Rules</td><td>Dialog: "Good morning, Sir! I'm Fikri, the intern. May I use the lift?" <div class="example"><b>Riil:</b> SOP Toyota: Katakan "Excuse me" sebelum pinjam tool. Praktek salam di bengkel Wongsorejo.</div></td><td>LKPD 1.1 Role-play sapa mekanik</td></tr>
+<tr><td></td><td>2</td><td>Safety Signs & PPE</td><td>Rambu: ⛔ DANGER HIGH VOLTAGE, 👷 Wear Safety Goggles <div class="example"><b>Riil:</b> Foto rambu asli bengkel: "Helm WAJIB". PPE: Safety shoes Kings, glove Ansell.</div></td><td>LKPD 1.2 Labeling APD</td></tr>
+<tr><td></td><td>3</td><td>Imperative - Don't / Do</td><td>"Don't smoke near fuel tank!" "Wear gloves before touching battery acid." <div class="example"><b>Riil:</b> Tulis 10 larangan di dinding bengkel TKR pakai bahasa Inggris.</div></td><td>LKPD 1.3 Buat poster K3LH</td></tr>
+<tr><td></td><td>4</td><td>Review & Formatif</td><td>Kuis Kahoot: bedakan Warning vs Prohibition sign</td><td>Sumatif Bab 1</td></tr>
+<tr><td><b>BAB 2: Hand Tools</b></td><td>5</td><td>Common Hand Tools</td><td>Wrench 12mm, Screwdriver Philips, Ball Peen Hammer <div class="example"><b>Riil:</b> Bawa kunci T 10 asli. Deskripsi: "This is a 12mm combination wrench made of chrome vanadium. It is used to loosen bolts."</div></td><td>LKPD 2.1 Klasifikasi</td></tr>
+<tr><td></td><td>6</td><td>Lifting & Power Tools</td><td>Hydraulic jack 2-ton, Impact wrench 1/2 inch <div class="example"><b>Riil:</b> Manual: "Lift capacity max 2000kg. Check oil level before use."</div></td><td>LKPD 2.2 Baca manual lift</td></tr>
+<tr><td></td><td>7</td><td>Describing Tools</td><td>Adjective: rusty, blunt, sharp, heavy-duty <div class="example"><b>Riil:</b> "The caliper is digital, precise, 0.01mm accuracy, stainless steel."</div></td><td>LKPD 2.3 Deskripsi alat</td></tr>
+<tr><td></td><td>8-9</td><td>Measuring & Presentation</td><td>Multimeter: 12.6V normal battery. Micrometer 25-50mm <div class="example"><b>Riil:</b> Siswa presentasi: "This is my favorite tool: ratchet handle..."</div></td><td>Presentasi lisan</td></tr>
+<tr><td><b>BAB 3: Procedure</b></td><td>10-11</td><td>Structure & Connectors</td><td>Goal - Materials - Steps. First, Next, Then, Finally <div class="example"><b>Riil:</b> Procedure: How to Check Engine Oil: "First, park on flat surface. Next, pull dipstick..."</div></td><td>LKPD 3.1 Susun langkah</td></tr>
+<tr><td></td><td>12</td><td>Tire Pressure</td><td>32 PSI Avanza, 35 PSI Innova <div class="example"><b>Riil:</b> Manual: "Inflate to 32 PSI. Use tire gauge. Check tread depth 1.6mm limit."</div></td><td>LKPD 3.2 Praktik ukur ban</td></tr>
+<tr><td></td><td>13-15</td><td>Air Filter & Checklist</td><td>"Remove 4 clips, take out filter, blow with compressed air max 2 bar" <div class="example"><b>Riil:</b> Buat checklist English: Engine Oil [v], Coolant [x]</div></td><td>Sumatif Bab 3</td></tr>
+<tr><td><b>BAB 4</b></td><td>16-18</td><td>Review & SAS</td><td>Game: Pit Stop Challenge bahasa Inggris</td><td>SAS Ganjil</td></tr>
+</table>
+</div>
+</div>
+
+<!-- XI TKR -->
+<div id="tkr11" class="module reveal">
+<div class="mod-head"><h2>XI TKR - Diagnostic & Analytical</h2><span class="badge">Fase F - Menengah</span></div>
+<div style="overflow:auto">
+<table>
+<tr><th>Bab</th><th>Pert</th><th>Materi</th><th>Contoh Riil + Aktivitas</th><th>LKPD</th></tr>
+<tr><td><b>BAB 1: Issue</b></td><td>1-2</td><td>Opinion & Debate</td><td>"I think EV is more efficient because..." <div class="example"><b>Riil:</b> Debat: "Should we delete catalytic converter? No, because emission + police tilang."</div></td><td>Debat modifikasi</td></tr>
+<tr><td></td><td>3-4</td><td>Analytical Exposition</td><td>Teks: "Why Electric Vehicles Will Replace Diesel by 2030" Thesis-Arguments <div class="example"><b>Riil:</b> Artikel Otomotif: EV Torque instant, maintenance low.</div></td><td>Analisis struktur</td></tr>
+<tr><td><b>BAB 2: Service Manual & DTC</b></td><td>5</td><td>FSM Flowchart</td><td>Troubleshooting: "If engine won't start -> check battery voltage > 12.4V?" <div class="example"><b>Riil:</b> Manual Avanza: Step 1-5 diagnostic chart.</div></td><td>Navigasi manual</td></tr>
+<tr><td></td><td>6-7</td><td>DTC Codes</td><td>P0171 System Too Lean, P0301 Misfire Cylinder 1, C1241 ABS <div class="example"><b>Riil:</b> Scanner Launch: "P0171 - Possible cause: dirty MAF sensor. Solution: Clean with MAF cleaner."</div></td><td>Interpretasi DTC</td></tr>
+<tr><td></td><td>8-9</td><td>Writing Service Report</td><td>"Customer complaint: Engine jerking. Found: Spark plug worn. Action: Replaced 4 plugs." <div class="example"><b>Riil:</b> Laporan bengkel resmi format English.</div></td><td>Sumatif laporan</td></tr>
+<tr><td><b>BAB 3: Overhaul</b></td><td>10-12</td><td>Engine Overhaul Procedure</td><td>"Remove cylinder head bolts in sequence 10-6-2-3-7. Torque 30Nm + 90°" <div class="example"><b>Riil:</b> Torque wrench setting untuk Toyota 1NR-FE.</div></td><td>Procedure text overhaul</td></tr>
+<tr><td></td><td>13-15</td><td>Customer Handling</td><td>Dialog: "What seems to be the problem, Sir? My brakes squeak when..." <div class="example"><b>Riil:</b> Role-play Service Advisor: Estimasi biaya "It will cost Rp 450.000 for brake pads."</div></td><td>Role-play SA</td></tr>
+<tr><td><b>BAB 4</b></td><td>16-18</td><td>SAS</td><td>Project: Video diagnostic English 2 menit</td><td>SAS</td></tr>
+</table>
+</div>
+</div>
+
+<!-- XII TKR -->
+<div id="tkr12" class="module reveal">
+<div class="mod-head"><h2>XII TKR - Career & Industry</h2><span class="badge">Siap Kerja</span></div>
+<div style="overflow:auto">
+<table>
+<tr><th>Bab</th><th>Pert</th><th>Materi</th><th>Contoh Riil</th><th>LKPD</th></tr>
+<tr><td><b>BAB 1: Job Application</b></td><td>1-3</td><td>CV & Application Letter Mechanic</td><td>"Dear Hiring Manager, I am a graduate of SMKN Wongsorejo majoring in TKR with 1-year internship at Auto2000..." <div class="example"><b>Riil:</b> Template CV ATS + surat lamaran ke Astra Otoparts.</div></td><td>Buat CV English</td></tr>
+<tr><td><b>BAB 2: Interview</b></td><td>4-7</td><td>Job Interview & Technical Test</td><td>Q: "Can you use OBD2 scanner?" A: "Yes, I can read live data and freeze frame..." <div class="example"><b>Riil:</b> Simulasi interview Daihatsu, tes alat: "Name this tool and its function."</div></td><td>Mock interview</td></tr>
+<tr><td><b>BAB 3: Invoice & Warranty</b></td><td>8-12</td><td>Invoice, Quotation, Warranty Claim</td><td>Invoice: "Labor: Rp 150k, Parts: Oil Filter Rp 85k, Total Rp 235k" <div class="example"><b>Riil:</b> Claim warranty: "Part failed within 3 months, mileage 2000km. Request replacement."</div></td><td>Buat invoice bengkel</td></tr>
+<tr><td><b>BAB 4: Safety Campaign</b></td><td>13-18</td><td>Presentation & SAS</td><td>Presentasi: "How to Improve Workshop Safety Using 5S (Seiri, Seiton...)"</td><td>Final project video</td></tr>
+</table>
+</div>
+</div>
+
+<!-- AKL -->
+<div id="akl11" class="module reveal">
+<div class="mod-head"><h2>XI AKL - Accounting English</h2><span class="badge">ESP Akuntansi</span></div>
+<div style="overflow:auto">
+<table>
+<tr><th>Bab</th><th>Pert</th><th>Materi</th><th>Contoh Riil</th><th>LKPD</th></tr>
+<tr><td><b>BAB 1</b></td><td>1-4</td><td>Financial Transaction Vocab</td><td>Invoice #INV-2026-001, Receipt, Debit Credit <div class="example"><b>Riil:</b> "PT Maju paid Rp 5.000.000 via BCA transfer. Record as Debit Cash, Credit Sales."</div></td><td>Jurnal umum English</td></tr>
+<tr><td><b>BAB 2</b></td><td>5-9</td><td>Financial Statements</td><td>Income Statement, Balance Sheet <div class="example"><b>Riil:</b> Laporan: "Revenue $10k, Expense $7k, Net Profit $3k. Assets = Liabilities + Equity."</div></td><td>Translate laporan</td></tr>
+<tr><td><b>BAB 3</b></td><td>10-15</td><td>Office & Tax Communication</td><td>"Please find attached VAT report. Deadline for tax payment is 15th." <div class="example"><b>Riil:</b> Email ke client: "Could you confirm the outstanding balance of Rp 2.500.000?"</div></td><td>Email bisnis</td></tr>
+<tr><td><b>BAB 4</b></td><td>16-18</td><td>SAS</td><td>Project: Present company financial health in English</td><td>SAS</td></tr>
+</table>
+</div>
+</div>
+
+</div>
+
+<footer>
+<div class="logo-fikri" style="font-size:1rem">fikri Esp tkr</div><br><br>
+© 2026 SMKN Wongsorejo • Dibuat dengan semangat oleh Achmad Ali Fikri, S.Hum<br>
+<span class="tag">v2.0 NEON EDITION • Klik logo buat efek!</span>
+</footer>
+
+<script>
+function openMod(id,el){
+ document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.dash-card').forEach(c=>c.classList.remove('active'));
+ el.classList.add('active'); el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+window.addEventListener('scroll',()=>{
+ let sc=document.documentElement.scrollTop;
+ let h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+ document.getElementById('progress').style.width=(sc/h*100)+'%';
+ document.querySelectorAll('.reveal').forEach(r=>{
+  if(r.getBoundingClientRect().top < window.innerHeight-80) r.classList.add('show');
+ });
+});
+document.querySelectorAll('.dash-card,.logo-fikri').forEach(card=>{
+ card.addEventListener('click',function(e){
+  let rect=this.getBoundingClientRect();
+  let ripple=document.createElement('span');
+  ripple.className='ripple';
+  ripple.style.left=(e.clientX-rect.left)+'px';
+  ripple.style.top=(e.clientY-rect.top)+'px';
+  ripple.style.width=ripple.style.height=Math.max(rect.width,rect.height)+'px';
+  this.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),600);
+  if(this.id==='logo'){this.classList.add('shine'); setTimeout(()=>this.classList.remove('shine'),700);}
+ });
+});
+document.getElementById('logo').addEventListener('click',function(){
+ this.classList.add('shine'); setTimeout(()=>this.classList.remove('shine'),700);
+});
+</script>
+</body>
+</html>
